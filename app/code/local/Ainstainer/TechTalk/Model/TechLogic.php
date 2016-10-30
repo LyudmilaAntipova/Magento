@@ -9,6 +9,6 @@ class Ainstainer_TechTalk_Model_TechLogic extends Mage_Core_Model_Abstract
     }
 
     public function sayHello(){
-        echo 'Hello';
+        echo 'Hello World';
     }
 }
