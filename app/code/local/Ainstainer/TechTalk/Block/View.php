@@ -1,9 +1,12 @@
 <?php
 class Ainstainer_TechTalk_Block_View extends Mage_Core_Block_Template
 {
-    protected function _toHtml()
+    public function getRequestRecord()
     {
-        echo Mage::getModel('techtalk/techLogic')->sayHello();
+        return Mage::getModel('techtalk/contact')->load(1);
     }
-
+    public function getRequestCollection()
+    {
+        return Mage::getModel('techtalk/contact')->getCollection();
+    }
 }

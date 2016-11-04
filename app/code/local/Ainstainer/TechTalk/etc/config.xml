@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Ainstainer_TechTalk>
-            <version>0.0.1</version>
+            <version>1.0.0</version>
         </Ainstainer_TechTalk>
     </modules>
     <frontend>
@@ -25,9 +25,18 @@
     </frontend>
     <global>
         <models>
-                <techtalk>
+            <techtalk>
                     <class>Ainstainer_TechTalk_Model</class>
-                </techtalk>
+                    <resourceModel>techtalk_resource</resourceModel>
+            </techtalk>
+            <techtalk_resource>
+                <class>Ainstainer_TechTalk_Model_Resource</class>
+                <entities>
+                    <contact>
+                        <table>ain_contact</table>
+                    </contact>
+                </entities>
+            </techtalk_resource>
         </models>
         <blocks>
             <techtalk>

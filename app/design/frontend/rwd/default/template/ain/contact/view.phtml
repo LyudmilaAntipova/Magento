@@ -1,0 +1,11 @@
+<?php
+    /*
+ * @var Ainstainer_Techtalk_Block_View $this*/
+
+    foreach($this->getRequestCollection() as $item):?>
+    <ul>
+        <li><?=$item->getName()?> said:</li>
+        <li><?=$item->getComment()?></li>
+    </ul>
+    <br/>
+<?php endforeach;?>
