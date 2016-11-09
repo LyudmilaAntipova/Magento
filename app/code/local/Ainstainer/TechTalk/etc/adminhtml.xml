@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <cms>
+            <children>
+                <ain_contacts translate="title" module="techtalk">
+                    <sort_order>100</sort_order>
+                    <title>Ain Contact</title>
+                    <action>adminhtml/contact/</action>
+                </ain_contacts>
+            </children>
+        </cms>
+    </menu>
+</config>

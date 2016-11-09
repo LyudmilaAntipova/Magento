@@ -43,5 +43,21 @@
                 <class>Ainstainer_TechTalk_Block</class>
             </techtalk>
         </blocks>
+        <helpers>
+            <techtalk>
+                <class>Ainstainer_TechTalk_Helper</class>
+            </techtalk>
+        </helpers>
     </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <ain_contacts before="Mage_Adminhtml">Ainstainer_TechTalk_Adminhtml</ain_contacts>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
 </config>
