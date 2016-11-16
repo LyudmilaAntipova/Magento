@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<layout>
+    <techtalks_index_index>
+        <reference name="root">
+            <action method="setTemplate">
+                <template>page/1column.phtml</template>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="techtalk/view" name="techtalk.hello" temlpate="ain/contact/view.phtml">
+                    <action method="setData">
+                        <kay>class</kay>
+                        <value>contacts-request</value>
+                    </action>
+                <block type="cms/block" name="ain.cookies.notice"></block>
+            </block>
+        </reference>
+    </techtalks_index_index>
+</layout>

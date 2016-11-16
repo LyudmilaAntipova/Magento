@@ -5,7 +5,7 @@ class Ainstainer_TechTalk_Adminhtml_ContactController extends Mage_Adminhtml_Con
     {
         $this->_title($this->__('Contact requests'))->_title($this->__('Ain Contact'));
         $this->loadLayout();
-        $this->_setActiveMenu('cms/ain_contacts');
+        $this->_setActiveMenu('ain_contacts');
         $this->_addContent($this->getLayout()->createBlock('techtalk/adminhtml_contact'));
         $this->renderLayout();
     }
@@ -18,19 +18,19 @@ class Ainstainer_TechTalk_Adminhtml_ContactController extends Mage_Adminhtml_Con
         );
     }
 
-//    public function exportCsvAction()
-//    {
-//        $fileName = 'contacts.csv';
-//        $grid = $this->getLayout()->createBlock('techtalk/adminhtml_contact_grid');
-//        $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
-//    }
-//
-//    public function exportExcelAction()
-//    {
-//        $fileName = 'contacts.xml';
-//        $grid = $this->getLayout()->createBlock('techtalk/adminhtml_contact_grid');
-//        $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
-//    }
+    public function exportCsvAction()
+    {
+        $fileName = 'contacts.csv';
+        $grid = $this->getLayout()->createBlock('techtalk/adminhtml_contact_grid');
+        $this->_prepareDownloadResponse($fileName, $grid->getCsvFile());
+    }
+
+    public function exportExcelAction()
+    {
+        $fileName = 'contacts.xml';
+        $grid = $this->getLayout()->createBlock('techtalk/adminhtml_contact_grid');
+        $this->_prepareDownloadResponse($fileName, $grid->getExcelFile($fileName));
+    }
 
     // edit section
 
@@ -47,11 +47,12 @@ class Ainstainer_TechTalk_Adminhtml_ContactController extends Mage_Adminhtml_Con
         // 1. Get ID and create model
         $id = $this->getRequest()->getParam('request_id');
         $model = Mage::getModel('techtalk/contact');
+        Mage::register('contact_request', $model);
 
         // 2. Initial checking
         if ($id) {
             $model->load($id);
-            if (! $model->getId()) {
+            if (!$model->getId()) {
                 Mage::getSingleton('adminhtml/session')->addError(Mage::helper('techtalk')->__('This block no longer exists.'));
                 $this->_redirect('*/*/');
                 return;
@@ -62,12 +63,12 @@ class Ainstainer_TechTalk_Adminhtml_ContactController extends Mage_Adminhtml_Con
 
         // 3. Set entered data if was error when we do save
         $data = Mage::getSingleton('adminhtml/session')->getFormData(true);
-        if (! empty($data)) {
+        if (!empty($data)) {
             $model->setData($data);
         }
 
         // 4. Register model to use later in blocks
-        Mage::register('contact_request', $model);
+//        Mage::register('contact_request', $model);
 
         // 5. Build edit form
         $this->loadLayout();
@@ -77,44 +78,88 @@ class Ainstainer_TechTalk_Adminhtml_ContactController extends Mage_Adminhtml_Con
             ->renderLayout();
     }
 
-    public function saveAction() {
+    /**
+     * Save action
+     */
+    public function saveAction()
+    {
+        // check if data sent
+        if ($data = $this->getRequest()->getPost()) {
 
-        $data = $this->getRequest()->getPost();
-
-    if ( $data = $this->getRequest()->getPost() ) {
-        $this->_getSession()->setFormData($data);
-        $model = Mage::getModel('techtalk/contact');
-        $id = $this->getRequest()->getParam('request_id');
-
-        try {
-            if ($id) {
-                $model->load($id);
-            }
-            $model->addData($data);
-            $model->save();
-
-            $this->_getSession()->addSuccess(
-                $this->__('successfully saved')
-            );
-            $this->_getSession()->setFormData(false);
-
-            if ( $this->getRequest()->getParam('name') ) {
-                $params = array('request_id' => $model->getId());
-                $this->_redirect('*/*/index');
-            }
-        } catch (Exception $e) {
-            $this->_getSession()->addError($e->getMessage());
-            if ($model && $model->getId()) {
-                $this->_redirect('*/*/edit', array(
-                    'request_id' => $model->getId())
-                );
-            } else {
+            $id = $this->getRequest()->getParam('request_id');
+            $model = Mage::getModel('techtalk/contact')->load($id);
+            if (!$model->getId() && $id) {
+                Mage::getSingleton('adminhtml/session')->addError(Mage::helper('techtalk')->__('This block no longer exists.'));
                 $this->_redirect('*/*/');
+                return;
+            }
+
+            // init model and set data
+
+            $model->setData($data);
+
+            // try to save it
+            try {
+                // save the data
+                $model->save();
+                // display success message
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('techtalk')->__('The block has been saved.'));
+                // clear previously saved data from session
+                Mage::getSingleton('adminhtml/session')->setFormData(true);
+
+                // check if 'Save and Continue'
+                if ($this->getRequest()->getParam('back')) {
+                    $this->_redirect('*/*/edit', array('request_id' => $model->getId()));
+                    return;
+                }
+                // go to grid
+                $this->_redirect('*/*/');
+                return;
+
+            } catch (Exception $e) {
+                // display error message
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                // save data in session
+                Mage::getSingleton('adminhtml/session')->setFormData($data);
+                // redirect to edit form
+                $this->_redirect('*/*/edit', array('request_id' => $this->getRequest()->getParam('request_id')));
+                return;
             }
         }
-        return;
+       $this->_redirect('*/*/');
     }
-    $this->_getSession()->addError($this->__('No data found to save'));
-    $this->_redirect('*/*');
+
+    /**
+     * Delete action
+     */
+    public function deleteAction()
+    {
+        // check if we know what should be deleted
+        if ($id = $this->getRequest()->getParam('request_id')) {
+            $title = "";
+            try {
+                // init model and delete
+                $model = Mage::getModel('techtalk/contact');
+                $model->load($id);
+                $title = $model->getTitle();
+                $model->delete();
+                // display success message
+                Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('techtalk')->__('The block has been deleted.'));
+                // go to grid
+                $this->_redirect('*/*/');
+                return;
+
+            } catch (Exception $e) {
+                // display error message
+                Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+                // go back to edit form
+                $this->_redirect('*/*/edit', array('request_id' => $id));
+                return;
+            }
+        }
+        // display error message
+        Mage::getSingleton('adminhtml/session')->addError(Mage::helper('techtalk')->__('Unable to find a block to delete.'));
+        // go to grid
+        $this->_redirect('*/*/');
     }
 }

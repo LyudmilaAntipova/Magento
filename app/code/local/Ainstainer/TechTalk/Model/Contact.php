@@ -5,4 +5,9 @@ class Ainstainer_TechTalk_Model_Contact extends Mage_Core_Model_Abstract{
     {
         $this->_init('techtalk/contact');
     }
+
+    public function getName()
+    {
+        return 'Ms.' . $this->getData('name');
+    }
 }

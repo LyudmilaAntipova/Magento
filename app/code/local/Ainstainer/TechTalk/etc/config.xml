@@ -38,6 +38,13 @@
                 </entities>
             </techtalk_resource>
         </models>
+        <resources>
+            <talk_setup>
+                <setup>
+                    <module>Ainstainer_TechTalk</module>
+                </setup>
+            </talk_setup>
+        </resources>
         <blocks>
             <techtalk>
                 <class>Ainstainer_TechTalk_Block</class>

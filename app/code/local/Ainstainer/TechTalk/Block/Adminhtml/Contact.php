@@ -9,6 +9,6 @@ class Ainstainer_TechTalk_Block_Adminhtml_Contact extends Mage_Adminhtml_Block_W
         $this->_headerText = Mage::helper('techtalk')->__('Contacts requests');
 
         parent::__construct();
-        $this->_removeButton('add');
+//        $this->_removeButton('add');
     }
 }

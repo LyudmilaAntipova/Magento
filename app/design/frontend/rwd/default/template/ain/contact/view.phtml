@@ -2,6 +2,45 @@
     /*
  * @var Ainstainer_Techtalk_Block_View $this*/
 
+ini_set('display_errors', 1);?>
+
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
+<div class="page-title">
+    <h1><?php echo Mage::helper('contacts')->__('Contact Us') ?></h1>
+</div>
+<form action="<?php echo $this->getFormAction(); ?>" id="contactForm" method="post" class="scaffold-form">
+    <div class="fieldset">
+        <h2 class="legend"><?php echo Mage::helper('contacts')->__('Contact Information') ?></h2>
+        <p class="required"><?php echo Mage::helper('contacts')->__('* Required Fields') ?></p>
+        <ul class="form-list">
+            <li class="fields">
+                <div class="field">
+                    <label for="name" class="required"><em>*</em><?php echo "Name" ?></label>
+                    <div class="input-box">
+                        <input name="name" id="name" title="<?php echo 'name'?>"  class="input-text required-entry" type="text" />
+                    </div>
+                </div>
+            </li>
+            <li class="wide">
+                <label for="comment" class="required"><em>*</em><?php echo "comment" ?></label>
+                <div class="input-box">
+                    <textarea name="comment" id="comment" title="<?php echo "comment" ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="buttons-set">
+        <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+        <button type="submit" title="<?php echo "Add Comment" ?>" class="button"><span><span>Add Comment</span></span></button>
+    </div>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    var contactForm = new VarienForm('contactForm', true);
+    //]]>
+</script>
+<ul class="<?=$this->getData('class')?>">
+    <?php
     foreach($this->getRequestCollection() as $item):?>
     <ul>
         <li><?=$item->getName()?> said:</li>
@@ -9,3 +48,4 @@
     </ul>
     <br/>
 <?php endforeach;?>
+<?=$this->getChildHtml("ain.cookies.notice")?>

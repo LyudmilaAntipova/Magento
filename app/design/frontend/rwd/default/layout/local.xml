@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<layuot>
+    <customer_account_login>
+        <reference name="content">
+            <block type="cms/block" name="cookies.notice">
+                <action method="setBlockId">
+                    <id>cookie_restriction_notice_block</id>
+                </action>
+            </block>
+        </reference>
+    </customer_account_login>
+</layuot>
