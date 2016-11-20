@@ -1,43 +1,35 @@
 <?php
     /*
- * @var Ainstainer_Techtalk_Block_View $this*/
-
-ini_set('display_errors', 1);?>
+ * @var Ainstainer_Techtalk_Block_View $this*/ ?>
 
 <div id="messages_product_view"><?php echo $this->getMessagesBlock()->toHtml() ?></div>
 <div class="page-title">
-    <h1><?php echo Mage::helper('contacts')->__('Contact Us') ?></h1>
+    <h1><?php echo Mage::helper('techtalk')->__('Comments') ?></h1>
 </div>
 <form action="<?php echo $this->getFormAction(); ?>" id="contactForm" method="post" class="scaffold-form">
     <div class="fieldset">
-        <h2 class="legend"><?php echo Mage::helper('contacts')->__('Contact Information') ?></h2>
-        <p class="required"><?php echo Mage::helper('contacts')->__('* Required Fields') ?></p>
+        <h2 class="legend"><?php echo Mage::helper('techtalk')->__('Contact Information') ?></h2>
+        <p class="required"><?php echo Mage::helper('techtalk')->__('* Required Fields') ?></p>
         <ul class="form-list">
             <li class="fields">
                 <div class="field">
-                    <label for="name" class="required"><em>*</em><?php echo "Name" ?></label>
+                    <label for="name" class="required"><em>*</em><?php echo "name" ?></label>
                     <div class="input-box">
-                        <input name="name" id="name" title="Name"  class="input-text required-entry" type="text" />
+                        <input name="name" id="name" title="<?php echo 'name'?>"  class="input-text required-entry" type="text" />
                     </div>
                 </div>
             </li>
-            <li>
-                <label for="email" class="required"><em>*</em><?php echo "Email" ?></label>
-                <div class="input-box">
-                    <input name="email" id="telephone" title="Email" value="" class="input-text required-entry validate-email" type="email" />
-                </div>
-            </li>
             <li class="wide">
-                <label for="comment" class="required"><em>*</em><?php echo "Comment" ?></label>
+                <label for="comment" class="required"><em>*</em><?php echo "comment" ?></label>
                 <div class="input-box">
-                    <textarea name="comment" id="comment" title="Comment" class="required-entry input-text" cols="5" rows="3"></textarea>
+                    <textarea name="comment" id="comment" title="<?php echo "comment" ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
                 </div>
             </li>
         </ul>
     </div>
     <div class="buttons-set">
         <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
-        <button type="submit" title="<?php echo Mage::helper('core')->quoteEscape(Mage::helper('contacts')->__('Submit')) ?>" class="button"><span><span><?php echo Mage::helper('contacts')->__('Submit') ?></span></span></button>
+        <button type="submit" title="<?php echo "new comment" ?>" class="button"><span><span>new comment</span></span></button>
     </div>
 </form>
 <script type="text/javascript">
@@ -45,13 +37,16 @@ ini_set('display_errors', 1);?>
     var contactForm = new VarienForm('contactForm', true);
     //]]>
 </script>
+
+<h5>other comments</h5>
 <ul class="<?=$this->getData('class')?>">
     <?php
     foreach($this->getRequestCollection() as $item):?>
-    <ul>
+
         <li><?=$item->getName()?> said:</li>
         <li><?=$item->getComment()?></li>
-    </ul>
     <br/>
 <?php endforeach;?>
+</ul>
+
 <?=$this->getChildHtml("ain.cookies.notice")?>

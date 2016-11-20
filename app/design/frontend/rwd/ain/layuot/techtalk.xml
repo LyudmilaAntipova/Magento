@@ -15,5 +15,8 @@
                 <block type="cms/block" name="ain.cookies.notice"></block>
             </block>
         </reference>
+        <reference name="right">
+            <remove name=""/>
+        </reference>
     </techtalks_index_index>
 </layout>

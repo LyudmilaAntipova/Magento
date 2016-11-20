@@ -1,12 +1,36 @@
 <?xml version="1.0"?>
-<layuot>
-    <customer_account_login>
-        <reference name="content">
-            <block type="cms/block" name="cookies.notice">
-                <action method="setBlockId">
-                    <id>cookie_restriction_notice_block</id>
-                </action>
-            </block>
-        </reference>
-    </customer_account_login>
-</layuot>
+
+<layout>
+<customer_account_login>
+    <reference name="content">
+        <block type="cms/block" name="ain.cookies.notice">
+            <action method="setBlockId">
+                <id>cookie_restriction_notice_block</id>
+            </action>
+        </block>
+    </reference>
+</customer_account_login>
+
+<default>
+    <reference name="footer_links2">
+        <action method="addLink">
+            <label>Contact us</label>
+            <url>/magetalk</url>
+        </action>
+    </reference>
+
+    <reference name="head">
+        <block type="core/template" name="header.search" as="headerSearch"
+               template="catalogsearch/form.mini.phtml"/>
+            <action method="addJs">
+                <script>mage/cookies.js</script>
+            </action>
+    </reference>
+
+    <reference name="header">
+        <remove name="top.search"></remove>
+        <!--<action method="unsetChild"></action>-->
+            <!--<name>topSearch</name>-->
+    </reference>
+ </default>
+</layout>

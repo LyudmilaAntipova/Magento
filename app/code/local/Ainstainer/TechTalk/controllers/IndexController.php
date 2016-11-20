@@ -5,11 +5,9 @@ class Ainstainer_TechTalk_IndexController  extends Mage_Core_Controller_Front_Ac
     public function indexAction()
     {
         $this->loadLayout();
-//        $this->getLayout()->getBlock('contactForm')
-//            ->setFormAction( Mage::getUrl('*/*/post', array('_secure' => $this->getRequest()->isSecure())) );
-
         $this->_initLayoutMessages('customer/session');
         $this->_initLayoutMessages('catalog/session');
+        $this->postAction();
         $this->renderLayout();
     }
 
@@ -34,19 +32,11 @@ class Ainstainer_TechTalk_IndexController  extends Mage_Core_Controller_Front_Ac
                     $error = true;
                 }
 
-                if (!Zend_Validate::is(trim($post['email']), 'EmailAddress')) {
-                    $error = true;
-                }
-
-                if (Zend_Validate::is(trim($post['hideit']), 'NotEmpty')) {
-                    $error = true;
-                }
-
                 if ($error) {
                     throw new Exception();
                 }
                 Mage::getModel('techtalk/contact')
-                    ->setData(array('name' => $post['name'], 'email' => $post['email'], 'comment' => $post['comment']))
+                    ->setData(array('name' => $post['name'], 'comment' => $post['comment']))
                     ->save();
                 Mage::getSingleton('customer/session')->addSuccess(Mage::helper('techtalk')->__('Your data has been successfully added'));
                 return;
