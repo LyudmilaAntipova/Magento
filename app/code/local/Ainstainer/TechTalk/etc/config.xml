@@ -13,6 +13,17 @@
                 </techtalk>
             </updates>
         </layout>
+        <events>
+            <controller_action_postdispatch_contacts_index_post>
+                <observers>
+                    <techtalk>
+                        <class>techtalk/observer</class>
+                        <method>controller_action_postdispatch_contacts</method>
+                        <type>model</type>
+                    </techtalk>
+                </observers>
+            </controller_action_postdispatch_contacts_index_post>
+        </events>
         <routers>
             <techtalk>
                 <use>standard</use>
@@ -21,6 +32,13 @@
                     <frontName>magetalk</frontName>
                 </args>
             </techtalk>
+            <customer>
+                <args>
+                    <modules>
+                        <ain_customer before="Mage_Customer">Ainstainer_TechTalk</ain_customer>
+                    </modules>
+                </args>
+            </customer>
         </routers>
     </frontend>
     <global>
@@ -37,6 +55,11 @@
                     </contact>
                 </entities>
             </techtalk_resource>
+            <cms>
+                <rewrite>
+                    <block>Ainstainer_TechTalk_Model_Block</block>
+                </rewrite>
+            </cms>
         </models>
         <resources>
             <talk_setup>
@@ -49,12 +72,28 @@
             <techtalk>
                 <class>Ainstainer_TechTalk_Block</class>
             </techtalk>
+            <catalog>
+                <rewrite>
+                    <product_view>Ainstainer_TechTalk_Block_Product_View</product_view>
+                </rewrite>
+            </catalog>
         </blocks>
         <helpers>
             <techtalk>
                 <class>Ainstainer_TechTalk_Helper</class>
             </techtalk>
         </helpers>
+        <events>
+          <cms_page_get_available_statuses>
+              <observers>
+                  <ain_add_cms_status>
+                      <type>singleton</type>
+                      <class>techtalk/observer</class>
+                      <method>addStatus</method>
+                  </ain_add_cms_status>
+              </observers>
+          </cms_page_get_available_statuses>
+        </events>
     </global>
     <admin>
         <routers>

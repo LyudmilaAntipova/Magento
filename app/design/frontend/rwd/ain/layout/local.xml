@@ -20,17 +20,24 @@
     </reference>
 
     <reference name="head">
-        <block type="core/template" name="header.search" as="headerSearch"
-               template="catalogsearch/form.mini.phtml"/>
-            <action method="addJs">
-                <script>mage/cookies.js</script>
-            </action>
+            <!--<action method="addJs">-->
+                <!--<script>mage/cookies.js</script>-->
+            <!--</action>-->
+        <action method="addLink">
+            <name>topSearch</name>
+        </action>
     </reference>
 
-    <reference name="header">
-        <remove name="top.search"></remove>
-        <!--<action method="unsetChild"></action>-->
-            <!--<name>topSearch</name>-->
+    <reference name="content">
+        <action method="unsetChild">
+            <name>right.poll</name>
+        </action>
+    </reference>
+
+    <reference name="content">
+        <action method="unsetChild">
+            <name>topSearch</name>
+    </action>
     </reference>
  </default>
 </layout>

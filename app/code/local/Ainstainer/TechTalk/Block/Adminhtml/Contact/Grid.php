@@ -36,6 +36,25 @@ class Ainstainer_TechTalk_Block_Adminhtml_Contact_Grid extends Mage_Adminhtml_Bl
             'index'  => 'name',
         ]);
 
+        $this->addColumn('comment', [
+            'header' => $helper->__('Comment'),
+            'type'   => 'text',
+            'index'  => 'comment',
+        ]);
+
+        $this->addColumn('email', [
+            'header' => $helper->__('Contact Email'),
+            'type'   => 'text',
+            'index'  => 'email',
+        ]);
+
+        $this->addColumn('phone', [
+            'header' => $helper->__('Contact Phone Number'),
+            'type'   => 'text',
+            'index'  => 'phone',
+        ]);
+
+
         $this->addExportType('*/*/exportCsv', $helper->__('CSV'));
         $this->addExportType('*/*/exportExcel', $helper->__('Excel XML'));
 
