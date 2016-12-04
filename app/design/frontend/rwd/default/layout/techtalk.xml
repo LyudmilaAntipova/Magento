@@ -8,7 +8,6 @@
         </action>
     </reference>
     <reference name="content">
-        <remove name="right.poll" />
         <block type="techtalk/view" name="magetalk.hello" template="ain/contact/view.phtml">
             <block type="cms/block" name="ain.cookies.notice">
                 <action method="setBlockId">

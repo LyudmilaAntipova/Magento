@@ -1,5 +1,4 @@
 <?xml version="1.0"?>
-
 <layout>
 <customer_account_login>
     <reference name="content">
@@ -19,19 +18,14 @@
         </action>
     </reference>
 
+    <remove name="right.poll" />
+
     <reference name="head">
             <!--<action method="addJs">-->
                 <!--<script>mage/cookies.js</script>-->
             <!--</action>-->
-        <action method="addLink">
-            <name>topSearch</name>
-        </action>
-    </reference>
-
-    <reference name="content">
-        <action method="unsetChild">
-            <name>right.poll</name>
-        </action>
+        <block type="core/template" name="header.search"
+               template="catalogsearch/form.mini.phtml"/>
     </reference>
 
     <reference name="content">

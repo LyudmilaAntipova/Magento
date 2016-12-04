@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+
 <layout>
     <techtalks_index_index>
         <reference name="root">
@@ -14,9 +15,6 @@
                     </action>
                 <block type="cms/block" name="ain.cookies.notice"></block>
             </block>
-        </reference>
-        <reference name="right">
-            <remove name=""/>
         </reference>
     </techtalks_index_index>
 </layout>
