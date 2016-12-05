@@ -1,0 +1,8 @@
+<h5>Category</h5>
+
+<?php foreach($this->getPost() as $post){?>
+
+    <li><a href="<?=$post->getUrl()?>"><br>
+            <?=$post->getTitle()?></br></a>
+    </li>
+<?php }?>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<config>
+    <menu>
+        <blog translate="title" module="blog">
+            <title>Blog</title>
+            <sort_order>100</sort_order>
+            <children>
+                <post translate="title" module="blog">
+                    <title>Post</title>
+                    <sort_order>3</sort_order>
+                    <action>adminhtml/post/</action>
+                </post>
+                <category translate="title" module="blog">
+                    <title>Category</title>
+                    <sort_order>3</sort_order>
+                    <action>adminhtml/category/</action>
+                </category>
+            </children>
+        </blog>
+    </menu>
+</config>

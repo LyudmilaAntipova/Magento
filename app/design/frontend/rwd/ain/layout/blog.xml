@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout>
+    <blog_index_index>
+        <reference name="content">
+            <block type="blog/view" name="blog.hello" template="ain/blog/post/view.phtml"/>
+        </reference>
+    </blog_index_index>
+</layout>
